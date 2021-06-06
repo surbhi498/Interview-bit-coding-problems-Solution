@@ -1,0 +1,65 @@
+Given a number A. Find the fatorial of the number.
+
+
+
+Problem Constraints
+1 <= A <= 100
+
+
+
+Input Format
+First and only argument is the integer A.
+
+
+
+Output Format
+Return a string, the factorial of A.
+
+
+
+Example Input
+Input 1:
+
+A = 2
+Input 2:
+
+A = 3
+
+
+Example Output
+Output 1:
+
+ 2
+Output 2:
+
+ 6
+ 
+ #include<string> 
+string Solution::solve(int A) {
+ string sol = "1";
+ int carry=0;
+ string str;
+ for(int i=2;i<=A;i++){
+     carry=0;
+for(int j=sol.size()-1;j>=0;j--)     
+{
+    int prod = (sol[j]-'0')*i+carry;
+    sol[j]=prod%10+'0';
+    carry=prod/10;
+    
+}     
+if(carry!=0){
+  sol = to_string(carry)+sol;    
+}
+ }
+ return sol;   
+}
+
+
+Example Explanation
+Explanation 1:
+
+2! = 2 .
+Explanation 2:
+
+3! = 6 .
