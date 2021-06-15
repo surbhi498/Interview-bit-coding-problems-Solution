@@ -1,0 +1,182 @@
+Problem Description
+
+Given an array A containing N integers.
+
+You need to find the maximum sum of triplet ( Ai + Aj + Ak ) such that 0 <= i < j < k < N and Ai < Aj < Ak.
+
+If no such triplet exist return 0.
+
+
+
+Problem Constraints
+3 <= N <= 105.
+
+1 <= A[i] <= 108.
+
+
+
+Input Format
+First argument is an integer array A.
+
+
+
+Output Format
+Return a single integer denoting the maximum sum of triplet as described in the question.
+
+
+
+Example Input
+Input 1:
+
+ A = [2, 5, 3, 1, 4, 9]
+Input 2:
+
+ A = [1, 2, 3]
+
+
+Example Output
+Output 1:
+
+ 16
+Output 2:
+
+ 6
+
+
+Example Explanation
+Explanation 1:
+
+ All possible triplets are:-
+    2 3 4 => sum = 9
+    2 5 9 => sum = 16
+    2 3 9 => sum = 14
+    3 4 9 => sum = 16
+    1 4 9 => sum = 14
+  Maximum sum = 16
+Explanation 2:
+
+ All possible triplets are:-
+    1 2 3 => sum = 6
+ Maximum sum = 6
+
+
+ #include <bits/stdc++.h>
+int getLowValue(set<int>& lowValue, int& n)
+{
+    auto it = lowValue.lower_bound(n);
+ 
+    // Since 'lower_bound' returns the first
+    // iterator greater than 'n', thus we
+    // have to decrement the pointer for
+    // getting the minimum value
+    --it;
+ 
+    return (*it);
+}
+int Solution::solve(vector<int> &A) {
+/*int n = A.size();
+sort(A.begin(),A.end());
+long long max1 = INT_MIN;
+long long sum=0;
+int end;
+for(int i=0;i<n;i++)
+{  int j=i+1;
+   end = n-1;
+   while(j<end){
+    sum=A[i]+A[j]+A[end];       
+    if(sum>max1){
+    max1 = sum;
+    j++;
+    
+    }
+    else if(sum<max1){
+    end--;    
+    }
+   }
+    
+}*/
+
+//return max1;
+/*vector<int> v1;
+int sum;
+for(int i=0;i<A.size()-2;i++)
+{
+for(int j=i+1;j<A.size()-1;j++){
+for(int k=j+1;k<A.size();k++){
+sum = A[i]+A[j]+A[k];
+v1.push_back(sum);
+}
+}
+}
+sum = v1[0];
+for(int i=1;i<v1.size();i++){
+if(sum<v1[i])
+sum=v1[i];
+}
+return sum;*/
+/*int i, j, k, sum=INT_MIN, max=INT_MIN;
+
+for(i=0; i<A.size()-2; i++)
+{
+
+    for(j=i+1; j<A.size()-1; j++){
+        if(A[j]> A[i]) //continue;
+        
+            for(k=j+1; k<A.size(); k++){
+                if(A[k]> A[j]){
+                    sum = A[i]+ A[j]+ A[k];
+                    if (sum > max) 
+                    max=sum;
+                }
+                
+            }
+    }
+    
+}
+return max;*/
+//int max=INT_MIN;
+
+/*int ans=0;
+for(int i=1;i<A.size()-1;i++){
+int max1=0;
+int max2=0;
+for(int j=0;j<i;j++){
+if(A[j]<A[i]) 
+max1=max(max1,A[j]);
+for(int h=i+1;h<A.size();h++)
+{
+ if(A[h]>A[i])
+ max2=max(max2,A[h]);
+
+    
+    
+}
+    
+    
+}    
+ if(max1 && max2)
+ans=max(ans,max1+A[i]+max2);    
+    
+}
+
+return ans;*/
+
+int n= A.size();
+int maxsuff[n+1];
+maxsuff[n]=0;
+for(int i=n-1;i>=0;i--)
+maxsuff[i]=max(maxsuff[i+1],A[i]);
+int ans=0;
+set<int> lowValue;
+lowValue.insert(INT_MIN);
+for(int i=0;i<A.size();i++){
+if(maxsuff[i+1]>A[i])
+ans = max(ans, getLowValue(lowValue,A[i])+A[i]+maxsuff[i+1]);
+lowValue.insert(A[i]);                                       
+    
+}
+
+return ans;    
+}
+
+
