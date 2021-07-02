@@ -1,0 +1,112 @@
+Given an array of length ‘N’, where each element denotes the position of a stall. Now you have ‘N’ stalls and an integer ‘K’ which denotes the number of cows that are aggressive. To prevent the cows from hurting each other, you need to assign the cows to the stalls, such that the minimum distance between any two of them is as large as possible. Return the largest minimum distance.
+Input Format :
+The first line contains a single integer ‘T’ denoting the number of test cases.
+
+The first line of each test case contains two integers ‘N’ and ‘K’ denoting the number of elements in the array/list and the number of aggressive cows.
+
+The second line contains ‘N’ single space-separated integers denoting the elements of the array.
+Output Format :
+For each test case, print the majority element in a separate line.
+Note :
+You do not need to print anything; it has already been taken care of.
+Constraints :
+1 <= T <= 5
+2 <= N <= 20000
+2 <= C <= N
+0 <= ARR[i] <= 10 ^ 9
+
+Where ‘T’ is the number of test cases, 'N' is the length of the given array and, ARR[i] denotes the i-th element in the array.
+
+Time Limit: 1 sec.
+Sample Input 1 :
+2
+3 2
+1 2 3
+5 2
+4 2 1 3 6
+Sample Output 1 :
+2
+5
+Explanation To Sample Input 1 :
+In the first test case, the largest minimum distance will be 2 when 2 cows are placed at positions {1, 3}.
+
+In the second test case, the largest minimum distance will be 5 when 2 cows are placed at positions {1, 6}.
+Sample Input 2 :
+2
+6 4
+0 3 4 7 10 9
+6 3
+0 4 3 7 10 9
+Sample Output 2 :
+3
+5
+Explanation To Sample Input 2 :
+In the first test case, the largest minimum distance will be 3 when 4 cows are placed at positions {0, 3, 7, 10}.
+
+In the second test case, the largest minimum distance will be 4 when 3 cows are placed at positions {0, 4, 10}.
+Previous
+Next
+
+#include<bits/stdc++.h> 
+using namespace std;
+/*bool allocationPossible(int barrier,int n,vector<int> &A,int B ){
+int gh=1;
+long long int prev;
+prev=A[0];    
+for(int i=1;i<n;i++){
+ if((A[i]-prev)>=barrier){   
+ gh++;
+ if(gh==B)
+ return true;
+ prev=A[i];    
+ }
+}
+return false;    
+ }*/
+
+//Distance between the two cows must be less therefore sort the array to keep the distance minimized we have to pick out the maximum largest possible distance between the two cows.
+int aggressiveCows(vector<int> &stalls, int k)
+{
+    //    Write your code here.
+     int n=stalls.size();
+    if(n<k)
+    return -1;
+    sort(stalls.begin(),stalls.end());
+    int min=stalls[0];
+   // int sum=stalls[n-1];
+ /*  for(int i=0;i<n;i++){
+    if(stalls[i]>min){
+    min=stalls[i];    
+    }
+    }*/
+    int low=0;;
+    int high=stalls[n-1];
+    int res=0;
+    long long int prev;
+   
+    while(low<=high){
+    int mid=(low+high)>>1;
+    int gh=1;
+    prev=stalls[0];        
+   for(int i=1;i<n;i++){
+ if(abs(stalls[i]-prev)>=mid){   
+ gh++;
+ if(gh==k)
+ break;
+ prev=stalls[i];    
+ }
+}     
+   if(gh==k){
+   res=max(res,mid);
+   low=mid+1;    
+   }     
+    else{
+        high=mid-1;
+    }
+    }
+    return res;
+    
+}
+Time Complexity : O(NlogN)
+
+Time Complexity
