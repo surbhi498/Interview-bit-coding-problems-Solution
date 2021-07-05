@@ -1,0 +1,47 @@
+vector<vector<int> > Solution::generateMatrix(int A) {
+vector<int> gh;
+int x = pow(A,2);
+for(int i=1;i<=x;i++)
+{
+gh.push_back(i);    
+}    
+ vector<vector<int> > jk(A, vector<int>(A));
+  for(int i=0; i<A; i++) jk[i].resize(A);
+/* vector<vector<int> > res(A);
+    for(int i=0; i<A; i++) res[i].resize(A);*/
+    
+ int count=0;
+        int rs=0;
+        int re=A-1;
+        int cs=0;
+        int ce=A-1;
+        int k=0;
+        int u=A*A;
+        while(count<u){
+        for(int i=rs;i<=ce;i++){
+        // vector<int> l;
+        // l.push_back(gh[k++]);        
+        jk[rs][i]=gh[k++];
+        count++;    
+        }
+        
+        rs++;     
+        for(int j=rs;j<=re;j++){
+        jk[j][ce]=gh[k++];
+        count++;    
+        }   
+        ce--;    
+        for(int t=ce;t>=cs;t--){
+        jk[re][t]=gh[k++];
+        count++;    
+        }
+        re--;    
+        for(int yu=re;yu>=rs;yu--){
+        jk[yu][cs]=gh[k++];
+        count++;     
+        }    
+        cs++;    
+            
+        }
+ return jk;
+}
